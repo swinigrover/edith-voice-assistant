@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>E.D.I.T.H. | Cognitive AI Voice Assistant</title>
+  <meta name="description" content="E.D.I.T.H. is an executive cognitive AI voice agent designed to eliminate manual interaction and streamline complex tasks entirely through voice.">
+  <link rel="stylesheet" href="/static/css/edith.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%2305070c' stroke='%2300f2fe' stroke-width='6'/><circle cx='50' cy='50' r='18' fill='%23ffffff'/></svg>">
+</head>
+<body>
+  <div class="edith-container">
+    <!-- Header HUD -->
+    <header class="hud-header">
+      <div class="brand-section">
+        <div class="arc-badge" title="Tactical Arc Reactor Online">
+          <div class="arc-inner-dot"></div>
+        </div>
+        <div class="title-container">
+          <h1>E.D.I.T.H.</h1>
+          <div class="subtitle">Cognitive Voice Intelligence • Mark IV</div>
+        </div>
+      </div>
+
+      <div class="hud-status-bar">
+        <div class="status-badge" id="networkStatusBadge">
+          <div class="status-dot" id="networkStatusDot"></div>
+          <span id="networkStatusText">NEURAL LINK ACTIVE</span>
+        </div>
+        <div class="time-badge" id="hudClock">00:00:00</div>
+      </div>
+
+      <div class="header-controls">
+        <button class="icon-btn" id="memoryBtn" title="Tactical Memory & Saved Notes" aria-label="Open Memory">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+            <polyline points="14 2 14 8 20 8"></polyline>
+            <line x1="16" y1="13" x2="8" y2="13"></line>
+            <line x1="16" y1="17" x2="8" y2="17"></line>
+            <polyline points="10 9 9 9 8 9"></polyline>
+          </svg>
+        </button>
+
+        <button class="icon-btn" id="settingsBtn" title="Neural Settings & API Keys" aria-label="Open Settings">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="3"></circle>
+            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+          </svg>
+        </button>
+      </div>
+    </header>
+
+    <!-- Main Dashboard Grid -->
+    <main class="dashboard-grid">
+      <!-- Center Visualizer & Interaction Stage -->
+      <section class="center-stage" aria-label="Visualizer and Voice Control Center">
+        <div class="hud-decor-corner hud-corner-tl"></div>
+        <div class="hud-decor-corner hud-corner-tr"></div>
+        <div class="hud-decor-corner hud-corner-bl"></div>
+        <div class="hud-decor-corner hud-corner-br"></div>
+
+        <!-- Canvas Arc Reactor -->
+        <div class="visualizer-wrapper">
+          <canvas id="arcVisualizerCanvas"></canvas>
+          <div class="visualizer-overlay">
+            <div class="state-indicator" id="stateText">SYSTEM STANDBY</div>
+            <div class="state-subtext" id="stateSubtext">Click microphone or activate continuous listening</div>
+          </div>
+        </div>
+
+        <!-- Live Subtitles / Audio Transcript Banner -->
+        <div class="live-subtitle-box">
+          <div class="live-indicator-tag">
+            <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor">
+              <circle cx="12" cy="12" r="10"/>
+            </svg>
+            LIVE TRANSCRIPT
+          </div>
+          <div class="live-transcript-text" id="liveTranscriptText">
+            "Standing by. Speak or click the microphone to command E.D.I.T.H."
+          </div>
+        </div>
+
+        <!-- Quick Tactical Prompt Chips -->
+        <div class="quick-chips-bar">
+          <button class="chip-btn" data-prompt="What is the weather in Delhi today?">🌤️ Weather Report</button>
+          <button class="chip-btn" data-prompt="What is the current time and date?">⏰ Temporal Sync</button>
+          <button class="chip-btn" data-prompt="What is 42 multiplied by 18.5?">🧮 Compute 42 × 18.5</button>
+          <button class="chip-btn" data-prompt="Remember that the project review is tomorrow at 10 AM">📝 Remember Note</button>
+          <button class="chip-btn" data-prompt="What notes do you have saved?">🧠 Recall Memory</button>
+          <button class="chip-btn" data-prompt="Who was Nikola Tesla?">🔬 Search Wikipedia</button>
+          <button class="chip-btn" data-prompt="Run system diagnostics and status report">⚙️ System Status</button>
+        </div>
+
+        <!-- Voice Interaction Control Bar -->
+        <div class="voice-console-bar">
+          <div class="mode-switches">
+            <label class="switch-label" title="Continuously listen for speech hands-free">
+              <div class="toggle-switch">
+                <input type="checkbox" id="continuousToggle" checked>
+                <span class="toggle-slider"></span>
+              </div>
+              <span>Hands-Free Mic</span>
+            </label>
+
+            <label class="switch-label" title="Only respond when you say 'EDITH' or 'Hey EDITH'">
+              <div class="toggle-switch">
+                <input type="checkbox" id="wakeWordToggle">
+                <span class="toggle-slider"></span>
+              </div>
+              <span>Wake-Word ("EDITH")</span>
+            </label>
+          </div>
+
+          <!-- Hero Mic Action Hub -->
+          <div class="mic-action-hub">
+            <button class="hero-mic-btn" id="micBtn" title="Toggle Microphone Listening" aria-label="Toggle Microphone">
+              <svg viewBox="0 0 24 24">
+                <path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3z"/>
+                <path d="M17 11c0 2.76-2.24 5-5 5s-5-2.24-5-5H5c0 3.53 2.61 6.43 6 6.92V21h2v-3.08c3.39-.49 6-3.39 6-6.92h-2z"/>
+              </svg>
+            </button>
+
+            <button class="barge-in-btn" id="bargeInBtn" title="Stop E.D.I.T.H. from speaking" aria-label="Barge-in Interrupt">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                <rect x="6" y="6" width="12" height="12"/>
+              </svg>
+              STOP
+            </button>
+          </div>
+
+          <!-- Text Fallback Field -->
+          <form class="text-query-form" id="textQueryForm">
+            <input type="text" id="textQueryInput" placeholder="Or type a command..." autocomplete="off">
+            <button type="submit" class="text-send-btn" title="Send text command">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
+              </svg>
+            </button>
+          </form>
+        </div>
+      </section>
+
+      <!-- Telemetry & Conversation Sidebar -->
+      <aside class="telemetry-sidebar" aria-label="Telemetry & Conversation Log">
+        <div class="sidebar-header">
+          <h2>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/>
+            </svg>
+            COGNITIVE FEED
+          </h2>
+          <button class="clear-btn" id="clearHistoryBtn" title="Clear log">Clear Feed</button>
+        </div>
+
+        <div class="conversation-feed" id="conversationFeed">
+          <!-- Feed items injected dynamically -->
+        </div>
+      </aside>
+    </main>
+  </div>
+
+  <!-- Settings Modal -->
+  <div class="modal-overlay" id="settingsModal">
+    <div class="hud-modal" role="dialog" aria-modal="true" aria-labelledby="settingsModalTitle">
+      <div class="modal-header">
+        <h3 id="settingsModalTitle">NEURAL SETTINGS // CONFIGURATION</h3>
+        <button class="modal-close-btn" id="closeSettingsBtn">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label for="apiKeyInput">Google Gemini API Key</label>
+          <input type="password" id="apiKeyInput" class="form-control" placeholder="Enter AIzaSy... key">
+          <small style="color: var(--text-dim); font-size: 0.75rem; margin-top: 4px;">
+            Enables full multi-modal cognitive reasoning and function calling. If left blank, EDITH operates in local tactical failover mode.
+          </small>
+        </div>
+
+        <div class="form-group">
+          <label for="modelSelect">Gemini Neural Architecture</label>
+          <select id="modelSelect" class="form-control">
+            <option value="gemini-3.8-flash">Gemini 3.8 Flash (Latest & Recommended)</option>
+            <option value="gemini-2.0-flash">Gemini 2.0 Flash</option>
+            <option value="gemini-1.5-flash">Gemini 1.5 Flash</option>
+            <option value="gemini-1.5-pro">Gemini 1.5 Pro</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="voiceSelect">Speech Synthesis Voice</label>
+          <select id="voiceSelect" class="form-control">
+            <!-- Dynamically populated from available browser voices -->
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="voiceRateSlider">Vocal Cadence Rate: <span id="voiceRateVal" style="color: var(--cyan-primary);">1.05x</span></label>
+          <input type="range" id="voiceRateSlider" min="0.75" max="1.5" step="0.05" value="1.05" style="accent-color: var(--cyan-primary); width: 100%;">
+        </div>
+
+        <button type="button" class="btn-secondary" id="testVoiceBtn" style="width: 100%;">
+          🔊 Test Voice Output
+        </button>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn-secondary" id="cancelSettingsBtn">CANCEL</button>
+        <button type="button" class="btn-primary" id="saveSettingsBtn">SAVE & SYNCHRONIZE</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Memory / Notes Modal -->
+  <div class="modal-overlay" id="memoryModal">
+    <div class="hud-modal" role="dialog" aria-modal="true" aria-labelledby="memoryModalTitle">
+      <div class="modal-header">
+        <h3 id="memoryModalTitle">TACTICAL MEMORY BANKS</h3>
+        <button class="modal-close-btn" id="closeMemoryBtn">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="notes-container" id="memoryList">
+          <!-- Dynamically populated notes -->
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-secondary" id="closeMemoryBtn2" onclick="document.getElementById('memoryModal').classList.remove('active')">CLOSE</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="/static/js/visualizer.js"></script>
+  <script src="/static/js/speech.js"></script>
+  <script src="/static/js/websocket.js"></script>
+  <script src="/static/js/app.js"></script>
+</body>
+</html>

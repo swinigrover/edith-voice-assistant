@@ -15,6 +15,7 @@ class Config:
     PORT: int = int(os.environ.get("PORT", "8000"))
     HOST: str = os.environ.get("HOST", "0.0.0.0")
     GEMINI_API_KEY: str = os.environ.get("GEMINI_API_KEY", "") or os.environ.get("GOOGLE_API_KEY", "")
+    DEFAULT_MODEL: str = os.environ.get("GEMINI_MODEL", "gemini-2.5-flash")
     IS_VERCEL: bool = bool(os.environ.get("VERCEL"))
     MEMORY_FILE: Path = Path("/tmp/memory.json") if IS_VERCEL else (BASE_DIR / "backend" / "data" / "memory.json")
 

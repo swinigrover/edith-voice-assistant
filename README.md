@@ -73,9 +73,6 @@ Create or edit `.env` in the project root:
 ```env
 
 
----
-
-## 🛠️ Project Architecture
 
 ```
 EDIth/
@@ -100,8 +97,6 @@ EDIth/
 ├── .env.example              # Environment variables template
 └── README.md                 # System documentation
 ```
-
----
 
 ## 🗣️ Voice Commands to Try Out
 

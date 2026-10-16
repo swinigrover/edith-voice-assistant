@@ -71,10 +71,7 @@ You can configure your Gemini API Key in either of two ways:
 ### Option B: Via `.env` File
 Create or edit `.env` in the project root:
 ```env
-GEMINI_API_KEY=your_gemini_api_key_here
-GEMINI_MODEL=gemini-2.5-flash
-PORT=8000
-```
+
 
 ---
 
